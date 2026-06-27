@@ -1,0 +1,6 @@
+mediapipe>=0.10.0
+pyvirtualcam>=0.10.0
+numpy>=1.26.0
+opencv-python>=4.10.0
+pyyaml>=6.0
+tyro>=0.8.0

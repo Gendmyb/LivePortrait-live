@@ -1,0 +1,59 @@
+# LivePortrait Real-Time Inference Configuration
+# ===============================================
+
+# --- Driving Source ("camera" or "video") ---
+driving:
+  mode: "camera"          # "camera" = USB webcam, "video" = pre-recorded file
+  video_path: ""          # path to video file (used only when mode="video")
+
+# --- Camera Settings (used only when driving.mode="camera") ---
+camera:
+  device_id: 0          # USB camera device index
+  width: 640
+  height: 480
+  fps: 30
+  use_mjpg: true        # MJPG codec for higher FPS on USB cameras
+
+# --- Source Portrait ---
+source:
+  image_path: "assets/examples/source/s0.jpg"
+  scale: 2.3            # crop scale factor (larger = smaller face area)
+  vy_ratio: -0.125      # vertical offset (- = up, includes more forehead)
+  flag_do_rot: true     # rotation correction via eye alignment
+
+# --- Face Detector (MediaPipe) ---
+detector:
+  model_complexity: 1          # 0=fastest, 1=balanced, 2=best quality
+  min_detection_confidence: 0.5
+  min_tracking_confidence: 0.5
+  static_image_mode: false     # false = tracking mode for video (faster)
+
+# --- LivePortrait Inference ---
+inference:
+  device_id: 0
+  flag_force_cpu: false
+  flag_use_half_precision: true      # FP16 (disable if black boxes appear)
+  flag_do_torch_compile: true        # torch.compile (~1min warmup, ~2x speedup)
+  flag_stitching: false              # disable for speed
+  flag_relative_motion: true         # relative motion mode
+  flag_pasteback: false              # disable pasteback for speed
+  flag_eye_retargeting: false
+  flag_lip_retargeting: false
+  animation_region: "all"            # "all", "exp", "pose", "lip", "eyes"
+  driving_multiplier: 1.0
+  driving_option: "expression-friendly"
+
+# --- Output Settings ---
+output:
+  fps: 30
+  width: 640
+  height: 480
+  virtual_camera: true       # use pyvirtualcam (OBS Virtual Camera, native Linux only)
+  show_preview: false        # also show OpenCV preview window (WSLg, often black)
+  mjpeg_port: 8080           # HTTP MJPEG streaming port (0 = disabled; use 8080 for WSL2→OBS)
+  mjpeg_quality: 85          # JPEG quality for MJPEG stream (70-95)
+
+# --- Performance Tuning ---
+performance:
+  queue_size: 1               # frame queue max size (1 = always freshest frame)
+  log_interval: 100           # log FPS every N frames

@@ -1,0 +1,55 @@
+# ===================================================================
+# This repository contains ONLY the realtime inference add-on for
+# LivePortrait.  Clone it alongside a full LivePortrait installation
+# (which is the dependency) and these patterns will keep the upstream
+# files from being accidentally committed.
+# ===================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+**/__pycache__/
+*.py[cod]
+**/*.py[cod]
+*$py.class
+
+# Model weights
+**/*.pth
+**/*.onnx
+
+pretrained_weights/
+
+# Ipython notebook
+*.ipynb
+
+# Temporary files or benchmark resources
+animations/*
+tmp/*
+.vscode/
+**/*.DS_Store
+gradio_temp/**
+
+# Windows dependencies
+ffmpeg/
+LivePortrait_env/
+
+# -------------------------------------------------------------------
+# Upstream LivePortrait source (installed separately as a dependency)
+# -------------------------------------------------------------------
+src/
+assets/
+inference.py
+inference_animals.py
+app.py
+app_animals.py
+speed.py
+
+# Upstream docs / meta (our README is README_REALTIME.md)
+readme.md
+readme_zh_cn.md
+update.md
+LICENSE
+
+# Upstream requirements (ours is requirements_realtime.txt)
+requirements.txt
+requirements_base.txt
+requirements_macOS.txt
